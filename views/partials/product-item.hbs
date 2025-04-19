@@ -1,0 +1,17 @@
+<li class="card"
+    style="display: none"
+    data-subcategory-id="{{ subcategory.id }}"
+    data-description="{{ description }}"
+    data-item-id="{{ id }}">
+  <div class="card__image" style="background-image:url({{ image }})"></div>
+  <div class="card__description">
+    <span style="display: none">{{ description }}</span>
+    <div class="sub-text">
+<!--      {# <i class="icon-{{ subcategory.category.icon }}"></i>#}-->
+<!--      {# <i class="icon-{{ subcategory.icon }}"></i>#}-->
+      {{ subcategory.name }}
+    </div>
+    <div class="card__name">{{ name }}</div>
+    <div class="card__cost"><span>{{ price }}</span> ₽</div>
+  </div>
+</li>

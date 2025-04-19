@@ -1,0 +1,119 @@
+@keyframes scale-to-1_2 {
+    from { }
+
+    to {
+        transform: scale(1.2,1.2);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.fade-in-300 {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.fade-out-300 {
+    animation: fadeOut 0.3s ease-in;
+}
+
+
+.fade-in-100 {
+    animation: fadeIn 0.1s ease-in;
+}
+
+.fade-out-100 {
+    animation: fadeOut 0.1s ease-in;
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale3d(.3,.3,.3);
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.zoomIn-300 {
+    animation: zoomIn 0.3s ease-in;
+}
+
+@keyframes zoomOut {
+    0% {
+        opacity: 1
+    }
+
+    50% {
+        opacity: 0;
+        transform: scale3d(.3,.3,.3)
+    }
+
+    to {
+        opacity: 0
+    }
+}
+
+.zoomOut-300 {
+    animation: zoomOut 0.3s ease-out;
+}
+
+@keyframes dialog__back-button-anim {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    5% {
+        transform: translateX(-0.1rem);
+    }
+    100% {
+        transform: translateX(1rem);
+        opacity: 0;
+    }
+}
+
+@keyframes dialog__back-button-fixed-anim {
+    5% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes wait {
+    0% {cursor: url("../cursors/ESwait/0.png"), wait;}
+    9% {cursor: url("../cursors/ESwait/1.png"), wait;}
+    18% {cursor: url("../cursors/ESwait/2.png"), wait;}
+    27% {cursor: url("../cursors/ESwait/3.png"), wait;}
+    36% {cursor: url("../cursors/ESwait/4.png"), wait;}
+    45% {cursor: url("../cursors/ESwait/5.png"), wait;}
+    54% {cursor: url("../cursors/ESwait/6.png"), wait;}
+    63% {cursor: url("../cursors/ESwait/7.png"), wait;}
+    72% {cursor: url("../cursors/ESwait/8.png"), wait;}
+    81% {cursor: url("../cursors/ESwait/9.png"), wait;}
+    90% {cursor: url("../cursors/ESwait/10.png"), wait;}
+    100% {cursor: url("../cursors/ESwait/11.png"), wait;}
+}
