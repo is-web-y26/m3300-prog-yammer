@@ -1,7 +1,11 @@
-<div class="content">
-  <h2>Добавление новой категории</h2>
+<div>
+  {{#if category}}
+    <h2>Обновление категории: Id {{category.id}}</h2>
+  {{else}}
+    <h2>Добавление новой категории</h2>
+  {{/if}}
 
-  <form action="/category" method="POST">
+  <form action="/category{{#if category}}/{{category.id}}/update{{/if}}" method="POST">
     <div class="form-group">
       <label>Название:</label>
       <input
@@ -9,6 +13,7 @@
         name="name"
         class="form-control"
         placeholder="Выживание"
+        {{#if category}}value="{{category.name}}"{{/if}}
         required
       >
     </div>
@@ -20,12 +25,13 @@
         name="serverName"
         class="form-control"
         placeholder="survival"
+        {{#if category}}value="{{category.serverName}}"{{/if}}
         required
       >
     </div>
 
-    <button type="submit" class="btn btn-primary mt-3">
-      <i class="fas fa-save"></i> Сохранить
+    <button type="submit">
+      Сохранить
     </button>
   </form>
 </div>

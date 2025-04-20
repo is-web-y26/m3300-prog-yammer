@@ -9,6 +9,9 @@ import { SubcategoryModule } from './subcategory/subcategory.module';
 import { ProductModule } from './product/product.module';
 import { CategoryController } from './category/category.controller';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { join } from 'path';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
@@ -44,6 +47,12 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
           },
         };
       },
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile:  'src/schema.gql',
+      playground: true,
+      // context: ({ req }) => ({ req }),
     }),
     CategoryModule,
     SubcategoryModule,

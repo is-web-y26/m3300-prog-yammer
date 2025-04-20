@@ -29,7 +29,7 @@ async function bootstrap() {
   // hbs.registerPartials(join(__dirname, '..', 'views/partials'));
   app.use(
     methodOverride('_method', {
-      methods: ['POST', 'GET'], // Разрешаем переопределение для POST и GET
+      methods: ['POST', 'GET'],
     }),
   );
   app.use(methodOverride('_method'));

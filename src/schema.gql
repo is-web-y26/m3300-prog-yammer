@@ -1,0 +1,73 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Гонщик команды"""
+type Subcategory {
+  """Уникальный идентификатор"""
+  id: Int!
+}
+
+"""Категория товара"""
+type Category {
+  """Уникальный идентификатор"""
+  id: Int!
+
+  """Название категории"""
+  name: String!
+
+  """Ссылка на иконку"""
+  iconUrl: String!
+
+  """Имя сервера, к которой относится категория"""
+  serverName: String!
+
+  """Подкатегории"""
+  subcategories: [Subcategory!]!
+}
+
+type Query {
+  """Получение списка всех категорий"""
+  categories: [Category!]!
+
+  """Получение категории по ID"""
+  category(
+    """ID категории"""
+    id: Int!
+  ): Category!
+}
+
+type Mutation {
+  """Создание новой категории"""
+  create(
+    """Данные для создания категории"""
+    createCategoryInput: CreateCategoryInput!
+  ): Category!
+
+  """Обновление данных категории"""
+  updateDriver(
+    """Данные для обновления категории"""
+    updateCategoryInput: UpdateCategoryInput!
+  ): Category!
+
+  """Удаление категори"""
+  removeDriver(
+    """ID категории для удаления"""
+    id: Int!
+  ): Category!
+}
+
+"""Данные для создания категории"""
+input CreateCategoryInput {
+  """Название категории"""
+  name: String!
+
+  """Имя сервера, к которой относится категория"""
+  serverName: String!
+}
+
+"""Данные для обновления категории"""
+input UpdateCategoryInput {
+  """ID категории"""
+  id: Int!
+}
