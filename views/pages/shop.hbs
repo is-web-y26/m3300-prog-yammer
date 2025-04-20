@@ -1,1 +1,56 @@
-<i>main</i>
+<link rel="stylesheet" href="css/shop.css">
+
+<div class="shop__main">
+  <h2 class="shop__title">
+    <span>Магазин</span>
+    <span class="sub-text pseudo-opacity">Православный рубль</span>
+  </h2>
+
+  <div id="categories">
+    <ul class="categories">
+      {{#each categories}}
+        <li class="category" data-category-id="{{ id }}">
+          <span>{{ name }}</span>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+<!--    <ul class="subcategories">-->
+<!--      <i class="icon-subcategories"></i>-->
+<!--      {% for s in subcategories %}-->
+<!--      <li class="subcategory"-->
+<!--          style="display: none"-->
+<!--          data-category-id="{{ s.category.id }}"-->
+<!--          data-subcategory-id="{{ s.id }}">-->
+<!--        {#                            TODO#}-->
+<!--        {#                            <span class="label">#}-->
+<!--{#                                <i class="icon-{{ s.icon }}"></i>#}-->
+<!--{#                            </span>#}-->
+<!--        <span>{{ s.name }}</span>-->
+<!--      </li>-->
+<!--      {% endfor %}-->
+<!--    </ul>-->
+<!--  </div>-->
+
+<!--  <ul class="cards">-->
+<!--    {% for p in products %}-->
+<!--    <li class="card"-->
+<!--        style="display: none"-->
+<!--        data-subcategory-id="{{ p.subcategory.id }}"-->
+<!--        data-description="{{ p.description }}"-->
+<!--        data-item-id="{{ p.id }}">-->
+<!--      <div class="card__image" style="background-image:url({% get_media_prefix %}{{ p.image }})"></div>-->
+<!--      <div class="card__description">-->
+<!--        <span style="display: none">{{ p.description }}</span>-->
+<!--        <div class="sub-text">-->
+<!--          {#                            <i class="icon-{{ p.subcategory.category.icon }}"></i>#}-->
+<!--          {#                            <i class="icon-{{ p.subcategory.icon }}"></i>#}-->
+<!--          {{ p.subcategory.name }}-->
+<!--        </div>-->
+<!--        <div class="card__name">{{ p.name }}</div>-->
+<!--        <div class="card__cost"><span>{{ p.price }}</span> ₽</div>-->
+<!--      </div>-->
+<!--    </li>-->
+<!--    {% endfor %}-->
+<!--  </ul>-->
+</div>

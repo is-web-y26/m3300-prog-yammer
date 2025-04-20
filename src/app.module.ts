@@ -4,9 +4,15 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { parse } from 'pg-connection-string';
+import { CategoryModule } from './category/category.module';
+import { SubcategoryModule } from './subcategory/subcategory.module';
+import { ProductModule } from './product/product.module';
+import { CategoryController } from './category/category.controller';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
+    EventEmitterModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -39,6 +45,9 @@ import { parse } from 'pg-connection-string';
         };
       },
     }),
+    CategoryModule,
+    SubcategoryModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
