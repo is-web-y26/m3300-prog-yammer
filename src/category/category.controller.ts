@@ -26,18 +26,6 @@ export class CategoryController {
     );
   }
 
-  // @Get('form/add')
-  // @Render('resources/category-form')
-  // categoryAddForm() {
-  //   return { layout: false };
-  // }
-  //
-  // @Get('form/update/:id')
-  // @Render('resources/category-form')
-  // async categoryUpdateForm(@Param('id') id: string) {
-  //   return { category: await this.categoryService.findOne(+id), layout: false };
-  // }
-
   @Get('create')
   @Render('resources/category-form')
   createForm() {

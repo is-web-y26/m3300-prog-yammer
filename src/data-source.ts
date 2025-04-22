@@ -2,7 +2,6 @@ import { DataSource } from 'typeorm';
 import { parse } from 'pg-connection-string';
 import 'dotenv/config';
 
-// Парсинг строки подключения из переменной окружения
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
   throw new Error("DATABASE_URL не установлен в переменных окружения");
@@ -23,5 +22,4 @@ export const AppDataSource = new DataSource({
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   synchronize: false,
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
-
 });

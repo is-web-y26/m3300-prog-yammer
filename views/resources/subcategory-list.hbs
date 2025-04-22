@@ -1,31 +1,31 @@
 <div>
   <h2>Управление категориями</h2>
 
-  <a href="/category/create">
+  <a href="/subcategory/create">
     Новая категория
   </a>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 
-  {{#if categories.length}}
-    <div class="category-list">
-      {{#each categories}}
+  {{#if subcategories.length}}
+    <div class="subcategory-list">
+      {{#each subcategories}}
         <div class="news-item card mb-3">
           <div class="card-body">
             <h3 class="card-title">{{name}}</h3>
             <div class="card-text">
-              <p>Привязанный сервер: {{serverName}}</p>
+              <p>Команда выдачи: {{giveCommand}}</p>
+            </div>
+            <div class="card-text">
+              <p>ID родительской категории: {{category.id}}</p>
             </div>
 
             <div class="actions mt-3">
-<!--              <a href="/category/{{this.id}}" class="btn btn-info btn-sm">-->
-<!--                <i class="fas fa-info-circle"></i> Подробнее-->
-<!--              </a>-->
-              <a href="/category/{{id}}/update" class="btn btn-warning btn-sm">
+              <a href="/subcategory/{{id}}/update" class="btn btn-warning btn-sm">
                 <i class="fas fa-edit"></i> Редактировать
               </a>
-              <form action="/category/{{id}}/remove" method="POST">
+              <form action="/subcategory/{{id}}/remove" method="POST">
                 <button type="submit" class="btn btn-danger btn-sm">
                   <i class="fas fa-trash"></i> Удалить
                 </button>
@@ -37,26 +37,26 @@
     </div>
   {{else}}
     <div class="alert alert-info">
-      Нет категорий
+      Нет подкатегорий
     </div>
   {{/if}}
 </div>
 
 
 <style>
-  .category-list .news-item {
+  .subcategory-list .news-item {
     background: #fff;
     border-radius: 8px;
     transition: transform 0.2s;
   }
 
-  .category-list .news-item:hover {
+  .subcategory-list .news-item:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 </style>
 <script>
-  const eventSource = new EventSource('/category/sse');
+  const eventSource = new EventSource('/subcategory/sse');
 
   eventSource.onmessage = (e) => {
     try {

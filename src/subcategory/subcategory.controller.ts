@@ -1,36 +1,72 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Sse, Redirect } from '@nestjs/common';
 import { SubcategoryService } from './subcategory.service';
 import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { UpdateSubcategoryDto } from './dto/update-subcategory.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { fromEvent, interval, map, Observable } from 'rxjs';
 import { ApiExcludeController } from '@nestjs/swagger';
 
 @ApiExcludeController()
 @Controller('subcategory')
 export class SubcategoryController {
-  constructor(private readonly subcategoryService: SubcategoryService) {}
+  constructor(
+    private readonly subcategoryService: SubcategoryService,
+    private eventEmitter: EventEmitter2,
+  ) {}
+
+  @Sse('sse')
+  sse(): Observable<MessageEvent> {
+    return fromEvent(this.eventEmitter, 'subcategory.update').pipe(
+      map((data) => {
+        return {
+          data: JSON.stringify(data),
+          type: 'message',
+        } as MessageEvent;
+      }),
+    );
+  }
+
+  @Get('create')
+  @Render('resources/subcategory-form')
+  createForm() {
+    return { layout: false };
+  }
+
+  @Get(':id/update')
+  @Render('resources/subcategory-form')
+  async updateForm(@Param('id') id: string) {
+    return { subcategory: await this.subcategoryService.findOne(+id), layout: false };
+  }
 
   @Post()
-  create(@Body() createSubcategoryDto: CreateSubcategoryDto) {
-    return this.subcategoryService.create(createSubcategoryDto);
+  @Redirect('/subcategory/:id/update')
+  async create(@Body() createSubcategoryDto: CreateSubcategoryDto) {
+    const subcategory = await this.subcategoryService.create(createSubcategoryDto);
+    return { subcategory: subcategory, layout: false };
   }
 
   @Get()
-  findAll() {
-    return this.subcategoryService.findAll();
+  @Render('resources/subcategory-list')
+  async findAll() {
+    return { categories: await this.subcategoryService.findAll(), layout: false };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subcategoryService.findOne(+id);
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.subcategoryService.findOne(+id);
+  // }
+
+  @Post(':id/update')
+  @Render('resources/subcategory-form')
+  async update(@Param('id') id: string, @Body() updateSubcategoryDto: UpdateSubcategoryDto) {
+    const subcategory = await this.subcategoryService.update(+id, updateSubcategoryDto);
+    return { subcategory, layout: false };
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubcategoryDto: UpdateSubcategoryDto) {
-    return this.subcategoryService.update(+id, updateSubcategoryDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subcategoryService.remove(+id);
+  @Post(':id/remove')
+  @Redirect('/subcategory')
+  async remove(@Param('id') id: string) {
+    const subcategory = await this.subcategoryService.remove(+id);
+    return { categories: await this.subcategoryService.findAll(), layout: false };
   }
 }
