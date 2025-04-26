@@ -1,85 +1,58 @@
 <div>
   <h2>Управление категориями</h2>
-  {{message}}
+  {{#if message}}{{message}}<br><br>{{/if}}
 
   <a href="/category/create">
     Новая категория
   </a>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-
   {{#if categories.length}}
-    <div class="category-list">
+    <div >
       {{#each categories}}
-        <div class="news-item card mb-3">
-          <div class="card-body">
-            <h3 class="card-title">{{name}}</h3>
-            <div class="card-text">
-              <p>Привязанный сервер: {{serverName}}</p>
-            </div>
+        <div class="item">
+          <h3>{{name}}</h3>
+          <div>ID: {{id}}</div>
+          <div>Привязанный сервер: {{serverName}}</div>
 
-            <div class="actions mt-3">
-<!--              <a href="/category/{{this.id}}" class="btn btn-info btn-sm">-->
-<!--                <i class="fas fa-info-circle"></i> Подробнее-->
-<!--              </a>-->
-              <a href="/category/{{id}}/update" class="btn btn-warning btn-sm">
-                <i class="fas fa-edit"></i> Редактировать
-              </a>
-              <form action="/category/{{id}}/remove" method="POST">
-                <button type="submit" class="btn btn-danger btn-sm">
-                  <i class="fas fa-trash"></i> Удалить
-                </button>
-              </form>
-            </div>
-          </div>
+          <br><a href="/category/{{id}}/update">Редактировать</a><br><br>
+          <form action="/category/{{id}}/remove" method="POST">
+            <button id="submit" onclick="getOut()" type="submit">Удалить</button>
+          </form>
         </div>
       {{/each}}
     </div>
   {{else}}
-    <div class="alert alert-info">
-      Нет категорий
-    </div>
+    <div>Нет категорий</div>
   {{/if}}
 </div>
 
-
-<style>
-  .category-list .news-item {
-    background: #fff;
-    border-radius: 8px;
-    transition: transform 0.2s;
-  }
-
-  .category-list .news-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
+  const eventList = document.getElementById('events');
   const eventSource = new EventSource('/category/sse');
 
+  toastr.options.positionClass = "toast-bottom-right";
+
   eventSource.onmessage = (e) => {
-    try {
-      const data = JSON.parse(e.data);
-      new Noty({
-        text: `${data.type}`,
-        type: 'info',
-        timeout: 3000,
-        layout: 'bottomRight'
-      }).show();
-    } catch (err) {
-      new Noty({
-        text: 'Ошибка формата данных',
-        type: 'error',
-        timeout: 3000,
-        layout: 'bottomRight'
-      }).show();
+    const json = JSON.parse(e.data);
+    let message = '';
+    if (json.type === "CREATE") {
+      message = `Создана категория ${json.category.name}`
+    } else if (json.type === "UPDATE") {
+      message = `Обновлена категория ${json.category.name}`
+    } else if (json.type === "REMOVE") {
+      message = `Удалена категория`
     }
+    toastr.success(message, 'Уведомление');
+  };
+  eventSource.onerror = (error) => {
+    console.log('EventSource failed:', error);
+    toastr.error('Ошибка отслеживания', 'Уведомление');
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const baseUrl = window.location.origin + window.location.pathname;
-    window.history.replaceState({}, document.title, baseUrl);
-  });
+  function getOut() {
+    eventSource.close();
+  }
 </script>

@@ -1,11 +1,10 @@
-import { Injectable, NotFoundException, UseFilters } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { NotFoundExceptionFilter } from '../filters/not_found_exc.filter';
 import { Subcategory } from '../subcategory/entities/subcategory.entity';
 
 @Injectable()
@@ -46,8 +45,7 @@ export class ProductService {
       where: { id },
       relations: ['subcategory'],
     });
-    if (!product)
-      throw new NotFoundException(`Product ${id} not found`);
+    if (!product) throw new NotFoundException(`Product ${id} not found`);
     return product;
   }
 
@@ -66,8 +64,7 @@ export class ProductService {
       ...updateProductDto,
       subcategory: subcategory,
     });
-    if (!product)
-      throw new NotFoundException(`Product ${id} not found`);
+    if (!product) throw new NotFoundException(`Product ${id} not found`);
     this.eventEmitter.emit('shop.product', { type: 'UPDATE', product });
     return this.productRepository.save(product);
   }

@@ -1,5 +1,3 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateCategoryDto } from './create-category.dto';
 import { Field, InputType, Int } from '@nestjs/graphql';
 import { CreateCategoryInput } from './create-category.input';
 

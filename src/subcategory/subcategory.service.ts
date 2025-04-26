@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UseFilters } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -6,7 +6,6 @@ import { Subcategory } from './entities/subcategory.entity';
 import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { Category } from '../category/entities/category.entity';
 import { UpdateSubcategoryDto } from './dto/update-subcategory.dto';
-import { NotFoundExceptionFilter } from '../filters/not_found_exc.filter';
 
 @Injectable()
 export class SubcategoryService {
@@ -60,7 +59,6 @@ export class SubcategoryService {
     const subcategory = await this.subcategoryRepository.preload({
       id,
       ...updateSubcategoryDto,
-      iconUrl: '',
       category: category,
     });
     if (!subcategory)
@@ -71,7 +69,8 @@ export class SubcategoryService {
 
   async remove(id: number) {
     const result = await this.subcategoryRepository.delete(id);
-    if (result.affected === 0) throw new NotFoundException('Subcategory not found');
+    if (result.affected === 0)
+      throw new NotFoundException('Subcategory not found');
     this.eventEmitter.emit('shop.subcategory', {
       type: 'REMOVE',
       subcategory: result.raw as Subcategory,

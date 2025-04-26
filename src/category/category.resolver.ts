@@ -51,7 +51,10 @@ export class CategoryResolver {
     })
     updateCategoryInput: UpdateCategoryInput,
   ) {
-    return this.categoryService.update(updateCategoryInput.id, updateCategoryInput);
+    return this.categoryService.update(
+      updateCategoryInput.id,
+      updateCategoryInput,
+    );
   }
 
   @Mutation(() => Category, {

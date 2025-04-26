@@ -3,10 +3,14 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
-  BadRequestException, Get, Param, Res, NotFoundException,
+  BadRequestException,
+  Get,
+  Param,
+  Res,
+  NotFoundException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { S3Service } from '../s3/s3Service';
+import { S3Service } from './s3Service';
 import { ApiExcludeController } from '@nestjs/swagger';
 import { Response } from 'express';
 
@@ -18,7 +22,6 @@ export class FileUploadController {
   @Post('uploadPhoto')
   @UseInterceptors(
     FileInterceptor('file', {
-      // limits: { fileSize: 5 * 1024 * 1024 },
       fileFilter: (req, file, callback) => {
         if (!['image/jpeg', 'image/png'].includes(file.mimetype)) {
           return callback(
@@ -40,21 +43,17 @@ export class FileUploadController {
   }
 
   @Get('*path')
-  async getFile(@Param("path") path: string, @Res() res: Response) {
+  async getFile(@Param('path') path: string, @Res() res: Response) {
     const key = path.replaceAll(',', '/');
 
     try {
       const file = await this.s3Service.getFile(key);
 
-      if (file.contentType) {
-        res.setHeader('Content-Type', file.contentType);
-      }
-      if (file.contentLength) {
+      if (file.contentType) res.setHeader('Content-Type', file.contentType);
+      if (file.contentLength)
         res.setHeader('Content-Length', file.contentLength);
-      }
-      if (file.lastModified) {
+      if (file.lastModified)
         res.setHeader('Last-Modified', file.lastModified.toUTCString());
-      }
 
       res.setHeader('Content-Disposition', `inline; filename="${key}"`);
       file.body.pipe(res);

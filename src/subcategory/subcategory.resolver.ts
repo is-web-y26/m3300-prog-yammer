@@ -51,7 +51,10 @@ export class SubcategoryResolver {
     })
     updateSubcategoryInput: UpdateSubcategoryInput,
   ) {
-    return this.subcategoryService.update(updateSubcategoryInput.id, updateSubcategoryInput);
+    return this.subcategoryService.update(
+      updateSubcategoryInput.id,
+      updateSubcategoryInput,
+    );
   }
 
   @Mutation(() => Subcategory, {

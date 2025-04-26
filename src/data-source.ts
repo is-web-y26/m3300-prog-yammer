@@ -4,7 +4,7 @@ import 'dotenv/config';
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
-  throw new Error("DATABASE_URL не установлен в переменных окружения");
+  throw new Error('DATABASE_URL отсутсвует');
 }
 
 const parsed = parse(databaseUrl);

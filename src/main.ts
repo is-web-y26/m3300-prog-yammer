@@ -6,6 +6,7 @@ import * as exphbs from 'express-handlebars';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { NotFoundExceptionFilter } from './filters/not_found_exc.filter';
+import { ElapsedTimeInterceptor } from './interceptors/elapsed.time.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -30,6 +31,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   app.useGlobalFilters(new NotFoundExceptionFilter());
+  app.useGlobalInterceptors(new ElapsedTimeInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('My API')

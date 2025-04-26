@@ -15,9 +15,7 @@ export class CategoryService {
   ) {}
 
   create(createCategoryDto: CreateCategoryDto) {
-    const category = this.categoryRepository.create({
-      ...createCategoryDto,
-    });
+    const category = this.categoryRepository.create(createCategoryDto);
     this.eventEmitter.emit('shop.category', { type: 'CREATE', category });
     return this.categoryRepository.save(category);
   }
@@ -48,7 +46,6 @@ export class CategoryService {
       throw new NotFoundException('Category not found');
     this.eventEmitter.emit('shop.category', {
       type: 'REMOVE',
-      category: result.raw as Category,
     });
   }
 }

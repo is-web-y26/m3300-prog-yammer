@@ -6,7 +6,7 @@ export class CreateSubcategoryInput {
   @Field({ description: 'Название подкатегории' })
   name: string;
 
-  @Field({ description: 'Настройка доступности покупки для игрока', })
+  @Field({ description: 'Настройка доступности покупки для игрока' })
   checkMethod?: CheckMethod = CheckMethod.NOT_NEED;
 
   @Field({

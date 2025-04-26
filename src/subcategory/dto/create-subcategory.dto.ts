@@ -9,13 +9,14 @@ export class CreateSubcategoryDto {
   name: string;
 
   @ApiProperty({
-    example:
-    CheckMethod.HAVING,
+    example: CheckMethod.HAVING,
     enum: CheckMethod,
     enumName: 'CheckMethod',
     description: 'Настройка доступности покупки для игрока',
   })
-  @IsEnum(CheckMethod, {message: `Роль должна быть одним из: ${Object.values(CheckMethod).join(', ')}` })
+  @IsEnum(CheckMethod, {
+    message: `Роль должна быть одним из: ${Object.values(CheckMethod).join(', ')}`,
+  })
   checkMethod?: CheckMethod = CheckMethod.NOT_NEED;
 
   @ApiProperty({

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Sse, Redirect } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Render,
+  Sse,
+  Redirect, HttpStatus,
+} from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -39,11 +48,12 @@ export class ProductController {
   }
 
   @Post()
-  @Redirect('/product')
+  @Redirect('/product', HttpStatus.SEE_OTHER)
   async create(@Body() createProductDto: CreateProductDto) {
-    console.log(createProductDto);
     const product = await this.productService.create(createProductDto);
-    return { product: product, layout: false };
+    return {
+      url: `/product?message=Товар ${product.id})${product.name} создан`,
+    };
   }
 
   @Get()
@@ -52,22 +62,22 @@ export class ProductController {
     return { products: await this.productService.findAll(), layout: false };
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.productService.findOne(+id);
-  // }
-
   @Post(':id/update')
-  @Render('resources/product-form')
-  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+  @Redirect('/product', HttpStatus.SEE_OTHER)
+  async update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
     const product = await this.productService.update(+id, updateProductDto);
-    return { product, layout: false };
+    return {
+      url: `/product?message=Товар ${product.id})${product.name} обновлён`,
+    };
   }
 
   @Post(':id/remove')
-  @Redirect('/product')
+  @Redirect('/product', HttpStatus.SEE_OTHER)
   async remove(@Param('id') id: string) {
-    const product = await this.productService.remove(+id);
-    return { categories: await this.productService.findAll(), layout: false };
+    await this.productService.remove(+id);
+    return { url: `/product?message=Товар удален` };
   }
 }

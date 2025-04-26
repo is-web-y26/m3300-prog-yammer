@@ -5,13 +5,12 @@ import { Readable } from 'stream';
 
 @Injectable()
 export class S3Service {
-  private s3Client: S3Client;
-
   constructor(private configService: ConfigService) {
     const region = this.configService.get<string>('REGION');
     const endpoint = this.configService.get<string>('ENDPOINT');
     const accessKeyId = this.configService.get<string>('ACCESS_KEY_ID');
     const secretAccessKey = this.configService.get<string>('SECRET_ACCESS_KEY');
+    this.bucketName = this.configService.get<string>('BUCKET_NAME')!;
 
     if (!region || !accessKeyId || !secretAccessKey) {
       throw new Error('AWS credentials are missing!');
@@ -32,15 +31,12 @@ export class S3Service {
     file: Express.Multer.File,
     folder = 'objects',
   ): Promise<string> {
-    const bucketName = this.configService.get<string>('BUCKET_NAME')!;
-    const endpoint = this.configService.get<string>('ENDPOINT')!;
-
     const timestamp = Date.now();
     const extension = file.originalname.split('.').pop();
     const key = `${folder}/${timestamp}.${extension}`;
 
     const command = new PutObjectCommand({
-      Bucket: bucketName,
+      Bucket: this.bucketName,
       Key: key,
       Body: file.buffer,
       ContentType: file.mimetype,
@@ -51,15 +47,13 @@ export class S3Service {
       await this.s3Client.send(command);
       return `/files/${key}`;
     } catch (error) {
-      console.error('S3 Error:', error);
       throw new InternalServerErrorException('File upload failed');
     }
   }
 
   async getFile(key: string) {
-    const bucketName = this.configService.get<string>('BUCKET_NAME')!;
     const command = new GetObjectCommand({
-      Bucket: bucketName,
+      Bucket: this.bucketName,
       Key: key,
     });
 
@@ -72,4 +66,7 @@ export class S3Service {
       metadata: response.Metadata,
     };
   }
+
+  private s3Client: S3Client;
+  private readonly bucketName: string;
 }

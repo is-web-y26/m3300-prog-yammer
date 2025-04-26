@@ -44,9 +44,6 @@ type Subcategory {
 
   """Название подкатегории"""
   name: String!
-
-  """Ссылка на иконку"""
-  iconUrl: String!
   checkMethod: CheckMethod!
 
   """
@@ -75,9 +72,6 @@ type Category {
 
   """Название категории"""
   name: String!
-
-  """Ссылка на иконку"""
-  iconUrl: String!
 
   """Имя сервера, к которой относится категория"""
   serverName: String!

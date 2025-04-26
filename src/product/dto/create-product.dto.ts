@@ -12,11 +12,17 @@ export class CreateProductDto {
   @IsNumber()
   price: number;
 
-  @ApiProperty({ example: 'Открывается доступ к команде /fly', description: 'Описание товара' })
+  @ApiProperty({
+    example: 'Открывается доступ к команде /fly',
+    description: 'Описание товара',
+  })
   @IsString()
   description: string;
 
-  @ApiProperty({ example: 'images/vip.png', description: 'Ссылка на изображение' })
+  @ApiProperty({
+    example: 'images/vip.png',
+    description: 'Ссылка на изображение',
+  })
   @IsString()
   imageUrl: string;
 
