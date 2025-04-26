@@ -12,7 +12,7 @@ export class Product {
   id: number;
 
   @ApiProperty({ example: 'VIP', description: 'Название товара' })
-  @Field(() => Int, { description: 'Название товара' })
+  @Field({ description: 'Название товара' })
   @Column()
   name: string;
 

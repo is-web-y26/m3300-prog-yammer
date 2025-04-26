@@ -36,13 +36,15 @@ export class SubcategoryService {
   }
 
   async findAll() {
-    return await this.subcategoryRepository.find({ relations: ['category'] });
+    return await this.subcategoryRepository.find({
+      relations: ['category', 'products'],
+    });
   }
 
   async findOne(id: number) {
     const subcategory = await this.subcategoryRepository.findOne({
       where: { id },
-      relations: ['category'],
+      relations: ['category', 'products'],
     });
     if (!subcategory)
       throw new NotFoundException(`Subcategory ${id} not found`);

@@ -89,7 +89,7 @@ export class SubcategoryApiController {
   @ApiResponse({ status: 200, description: 'Подкатегория обновлена' })
   @ApiResponse({ status: 400, description: 'Некорректны данные' })
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateSubcategoryDto: UpdateSubcategoryDto,
   ) {
     return this.subcategoryService.update(+id, updateSubcategoryDto);

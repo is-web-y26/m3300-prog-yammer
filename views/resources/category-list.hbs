@@ -46,7 +46,7 @@
     toastr.success(message, 'Уведомление');
   };
   eventSource.onerror = (error) => {
-    toastr.error('Ошибка отслеживания', 'Уведомление');
+    toastr.error('Ошибка отслеживания ' + error, 'Уведомление');
   };
 
   function getOut() {

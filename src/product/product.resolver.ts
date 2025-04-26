@@ -21,7 +21,7 @@ export class ProductResolver {
   }
 
   @Query(() => [Product], {
-    name: 'categories',
+    name: 'products',
     description: 'Получение списка всех товаров',
   })
   findAll() {

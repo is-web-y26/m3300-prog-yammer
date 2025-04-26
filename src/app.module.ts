@@ -13,6 +13,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { S3Module } from './s3/s3Module';
 import { FileUploadController } from './s3/files.controller';
 import { CacheModule } from '@nestjs/cache-manager';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ElapsedTimeInterceptor } from './interceptors/elapsed-time.interceptor';
 
 @Module({
   imports: [
@@ -55,11 +57,11 @@ import { CacheModule } from '@nestjs/cache-manager';
       playground: true,
       introspection: true,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      context: ({ req }) => ({ req }),
+      context: ({ req, res }) => ({ req, res }),
       path: '/graphql',
       cache: 'bounded',
     }),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+
     CacheModule.register({
       ttl: 10,
       max: 100,
@@ -70,6 +72,12 @@ import { CacheModule } from '@nestjs/cache-manager';
     S3Module,
   ],
   controllers: [AppController, FileUploadController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ElapsedTimeInterceptor,
+    },
+  ],
 })
 export class AppModule {}

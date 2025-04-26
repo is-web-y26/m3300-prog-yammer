@@ -76,7 +76,7 @@ export class ProductApiController {
   })
   @ApiResponse({ status: 200, description: 'Товар обновлен' })
   @ApiResponse({ status: 400, description: 'Некорректны данные' })
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+  update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(+id, updateProductDto);
   }
 

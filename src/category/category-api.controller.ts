@@ -83,7 +83,7 @@ export class CategoryApiController {
   @ApiResponse({ status: 200, description: 'Категория обновлена' })
   @ApiResponse({ status: 400, description: 'Некорректны данные' })
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     return this.categoryService.update(+id, updateCategoryDto);

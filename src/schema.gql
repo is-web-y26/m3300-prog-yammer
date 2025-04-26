@@ -8,7 +8,7 @@ type Product {
   id: Int!
 
   """Название товара"""
-  name: Int!
+  name: String!
 
   """Цена товара в рублях"""
   price: Float!
@@ -81,8 +81,8 @@ type Category {
 }
 
 type Query {
-  """Получение списка всех товаров"""
-  categories: [Product!]!
+  """Получение списка всех категорий"""
+  categories: [Category!]!
 
   """Получение категории по ID"""
   category(
@@ -90,11 +90,17 @@ type Query {
     id: Int!
   ): Category!
 
+  """Получение списка всех подкатегорий"""
+  subcategories: [Subcategory!]!
+
   """Получение подкатегории по ID"""
   subcategory(
     """ID подкатегории"""
     id: Int!
   ): Subcategory!
+
+  """Получение списка всех товаров"""
+  products: [Product!]!
 
   """Получение товара по ID"""
   product(

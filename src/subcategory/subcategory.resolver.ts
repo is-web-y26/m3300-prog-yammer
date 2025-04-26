@@ -21,7 +21,7 @@ export class SubcategoryResolver {
   }
 
   @Query(() => [Subcategory], {
-    name: 'categories',
+    name: 'subcategories',
     description: 'Получение списка всех подкатегорий',
   })
   findAll() {

@@ -6,7 +6,7 @@ import * as exphbs from 'express-handlebars';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { NotFoundExceptionFilter } from './filters/not_found_exc.filter';
-import { ElapsedTimeInterceptor } from './interceptors/elapsed.time.interceptor';
+import { ElapsedTimeInterceptor } from './interceptors/elapsed-time.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
