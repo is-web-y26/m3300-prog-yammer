@@ -12,6 +12,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { S3Module } from './s3/s3Module';
 import { FileUploadController } from './s3/files.controller';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -53,9 +54,15 @@ import { FileUploadController } from './s3/files.controller';
       autoSchemaFile: 'src/schema.gql',
       playground: true,
       introspection: true,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       context: ({ req }) => ({ req }),
       path: '/graphql',
       cache: 'bounded',
+    }),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    CacheModule.register({
+      ttl: 10,
+      max: 100,
     }),
     CategoryModule,
     SubcategoryModule,

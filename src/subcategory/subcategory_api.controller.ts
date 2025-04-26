@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -18,9 +19,11 @@ import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { SubcategoryService } from './subcategory.service';
 import { Subcategory } from './entities/subcategory.entity';
 import { UpdateSubcategoryDto } from './dto/update-subcategory.dto';
+import { CacheControl } from '../interceptors/etag.interceptor';
 
 @ApiTags('Subcategory')
 @Controller('api/subcategory')
+@UseInterceptors(new CacheControl())
 export class SubcategoryApiController {
   constructor(private readonly subcategoryService: SubcategoryService) {}
 
