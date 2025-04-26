@@ -1,79 +1,56 @@
 <div>
-  <h2>Управление категориями</h2>
+  <h2>Управление подкатегориями</h2>
+  {{#if message}}{{message}}<br><br>{{/if}}
 
-  <a href="/subcategory/create">
-    Новая категория
-  </a>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
-
+  <a href="/subcategory/create">Новая подкатегория</a>
+  
   {{#if subcategories.length}}
-    <div class="subcategory-list">
+    <div>
       {{#each subcategories}}
-        <div class="news-item card mb-3">
-          <div class="card-body">
-            <h3 class="card-title">{{name}}</h3>
-            <div class="card-text">
-              <p>Команда выдачи: {{giveCommand}}</p>
-            </div>
-            <div class="card-text">
-              <p>Родительская категория: {{category.id}}) {{category.name}}</p>
-            </div>
+        <div class="item">
+          <h3>{{name}}</h3>
+          <div>ID: {{id}}</div>
+          <div>Команда выдачи: {{giveCommand}}</div>
+          <div>Родительская категория: {{category.id}}) {{category.name}}</div>
 
-            <div class="actions mt-3">
-              <a href="/subcategory/{{id}}/update" class="btn btn-warning btn-sm">
-                <i class="fas fa-edit"></i> Редактировать
-              </a>
-              <form action="/subcategory/{{id}}/remove" method="POST">
-                <button type="submit" class="btn btn-danger btn-sm">
-                  <i class="fas fa-trash"></i> Удалить
-                </button>
-              </form>
-            </div>
-          </div>
+          <br><a href="/subcategory/{{id}}/update">Редактировать</a><br><br>
+          <form action="/subcategory/{{id}}/remove" method="POST">
+            <button type="submit" onclick="getOut()">Удалить</button>
+          </form>
         </div>
       {{/each}}
     </div>
   {{else}}
-    <div class="alert alert-info">
-      Нет подкатегорий
-    </div>
+    <div>Нет подкатегорий</div>
   {{/if}}
 </div>
 
-
-<style>
-  .subcategory-list .news-item {
-    background: #fff;
-    border-radius: 8px;
-    transition: transform 0.2s;
-  }
-
-  .subcategory-list .news-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
+  const eventList = document.getElementById('events');
   const eventSource = new EventSource('/subcategory/sse');
 
+  toastr.options.positionClass = "toast-bottom-right";
+
   eventSource.onmessage = (e) => {
-    try {
-      const data = JSON.parse(e.data);
-      new Noty({
-        text: `${data.type}`,
-        type: 'info',
-        timeout: 3000,
-        layout: 'bottomRight'
-      }).show();
-    } catch (err) {
-      new Noty({
-        text: 'Ошибка формата данных',
-        type: 'error',
-        timeout: 3000,
-        layout: 'bottomRight'
-      }).show();
+    const json = JSON.parse(e.data);
+    let message = '';
+    if (json.type === "CREATE") {
+      message = `Создана подкатегория ${json.subcategory.name}`
+    } else if (json.type === "UPDATE") {
+      message = `Обновлена подкатегория ${json.subcategory.name}`
+    } else if (json.type === "REMOVE") {
+      message = `Удалена подкатегория`
     }
+    toastr.success(message, 'Уведомление');
   };
+  eventSource.onerror = (error) => {
+    toastr.error('Ошибка отслеживания', 'Уведомление');
+  };
+
+  function getOut() {
+    eventSource.close();
+  }
 </script>

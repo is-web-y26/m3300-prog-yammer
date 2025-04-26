@@ -3,21 +3,18 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   Render,
   Sse,
   Redirect,
-  UseFilters, HttpStatus,
+  HttpStatus,
 } from '@nestjs/common';
 import { SubcategoryService } from './subcategory.service';
 import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { UpdateSubcategoryDto } from './dto/update-subcategory.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { fromEvent, interval, map, Observable } from 'rxjs';
+import { fromEvent, map, Observable } from 'rxjs';
 import { ApiExcludeController } from '@nestjs/swagger';
-import { NotFoundExceptionFilter } from '../filters/not_found_exc.filter';
 
 @ApiExcludeController()
 @Controller('subcategory')
@@ -29,7 +26,7 @@ export class SubcategoryController {
 
   @Sse('sse')
   sse(): Observable<MessageEvent> {
-    return fromEvent(this.eventEmitter, 'subcategory.update').pipe(
+    return fromEvent(this.eventEmitter, 'shop.subcategory').pipe(
       map((data) => {
         return {
           data: JSON.stringify(data),
@@ -42,15 +39,16 @@ export class SubcategoryController {
   @Get('create')
   @Render('resources/subcategory-form')
   createForm() {
-    return { layout: false };
+    return { title: 'Создание подкатегории', layout: this.layout };
   }
 
   @Get(':id/update')
   @Render('resources/subcategory-form')
   async updateForm(@Param('id') id: string) {
     return {
+      title: 'Обновление подкатегории',
       subcategory: await this.subcategoryService.findOne(+id),
-      layout: false,
+      layout: this.layout,
     };
   }
 
@@ -68,8 +66,9 @@ export class SubcategoryController {
   @Render('resources/subcategory-list')
   async findAll() {
     return {
+      title: 'Подкатегории',
       subcategories: await this.subcategoryService.findAll(),
-      layout: false,
+      layout: this.layout,
     };
   }
 
@@ -94,4 +93,6 @@ export class SubcategoryController {
     await this.subcategoryService.remove(+id);
     return { url: `/subcategory?message=Подкатегория удалена` };
   }
+
+  private readonly layout = 'resource.hbs';
 }

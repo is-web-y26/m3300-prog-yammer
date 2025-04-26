@@ -1,79 +1,53 @@
 <div>
   <h2>Управление товарами</h2>
-
-  <a href="/product/create">
-    Новая категория
-  </a>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+  <a href="/product/create">Новый товар</a>
 
   {{#if products.length}}
-    <div class="product-list">
+    <div>
       {{#each products}}
-        <div class="news-item card mb-3">
-          <div class="card-body">
-            <h3 class="card-title">{{name}}</h3>
-            <div class="card-text">
-              <p>Цена: {{price}}</p>
-            </div>
-            <div class="card-text">
-              <p>Подкатегория: {{subcategory.id}}) {{subcategory.name}}</p>
-            </div>
+        <div class="item">
+          <h3 class="card-title">{{name}}</h3>
+          <div>Цена: {{price}}</div>
+          <div>Подкатегория: {{subcategory.id}}) {{subcategory.name}}</div>
 
-            <div class="actions mt-3">
-              <a href="/product/{{id}}/update" class="btn btn-warning btn-sm">
-                <i class="fas fa-edit"></i> Редактировать
-              </a>
-              <form action="/product/{{id}}/remove" method="POST">
-                <button type="submit" class="btn btn-danger btn-sm">
-                  <i class="fas fa-trash"></i> Удалить
-                </button>
-              </form>
-            </div>
-          </div>
+          <br><a href="/product/{{id}}/update" class="btn btn-warning btn-sm">Редактировать</a><br><br>
+          <form action="/product/{{id}}/remove" method="POST">
+            <button type="submit">Удалить</button>
+          </form>
         </div>
       {{/each}}
     </div>
   {{else}}
-    <div class="alert alert-info">
-      Нет товаров
-    </div>
+    <div>Нет товаров</div>
   {{/if}}
 </div>
 
-
-<style>
-  .product-list .news-item {
-    background: #fff;
-    border-radius: 8px;
-    transition: transform 0.2s;
-  }
-
-  .product-list .news-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
+  const eventList = document.getElementById('events');
   const eventSource = new EventSource('/product/sse');
 
+  toastr.options.positionClass = "toast-bottom-right";
+
   eventSource.onmessage = (e) => {
-    try {
-      const data = JSON.parse(e.data);
-      new Noty({
-        text: `${data.type}`,
-        type: 'info',
-        timeout: 3000,
-        layout: 'bottomRight'
-      }).show();
-    } catch (err) {
-      new Noty({
-        text: 'Ошибка формата данных',
-        type: 'error',
-        timeout: 3000,
-        layout: 'bottomRight'
-      }).show();
+    const json = JSON.parse(e.data);
+    let message = '';
+    if (json.type === "CREATE") {
+      message = `Создан товар ${json.product.name}`
+    } else if (json.type === "UPDATE") {
+      message = `Обновлен товар ${json.product.name}`
+    } else if (json.type === "REMOVE") {
+      message = `Удален товар`
     }
+    toastr.success(message, 'Уведомление');
   };
+  eventSource.onerror = (error) => {
+    toastr.error('Ошибка отслеживания', 'Уведомление');
+  };
+
+  function getOut() {
+    eventSource.close();
+  }
 </script>

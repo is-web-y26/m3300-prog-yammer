@@ -74,42 +74,12 @@
       >
     </div>
 
-    <button type="submit">
-      Сохранить
-    </button>
+    <button type="submit">Сохранить</button>
   </form>
 </div>
 
-<style>
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-
-  .form-control {
-    border-radius: 4px;
-    padding: 0.75rem;
-  }
-</style>
-<ul id="events"></ul>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
-  const eventList = document.getElementById('events');
-  const eventSource = new EventSource('http://localhost:3000/product/sse');
-
-  toastr.options.positionClass = "toast-bottom-right";
-
-  eventSource.onmessage = (e) => {
-    toastr.success('Сообщение успешно отправлено!', 'Успех');
-  };
-
-  eventSource.onerror = (error) => {
-    console.log('EventSource failed:', error);
-  };
-
-
   const uploadBtn = document.getElementById('uploadPhotoBtn');
   const fileInput = document.createElement('input');
   fileInput.type = 'file';

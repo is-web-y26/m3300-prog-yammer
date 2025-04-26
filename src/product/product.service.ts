@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -6,6 +6,8 @@ import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Subcategory } from '../subcategory/entities/subcategory.entity';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class ProductService {
@@ -15,10 +17,11 @@ export class ProductService {
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
     private eventEmitter: EventEmitter2,
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
   ) {}
 
   async create(createProductDto: CreateProductDto) {
-    console.log(createProductDto);
     const subcategory = await this.subcategoryRepository.findOneBy({
       id: createProductDto.subcategoryId,
     });
@@ -41,11 +44,18 @@ export class ProductService {
   }
 
   async findOne(id: number) {
+    const key = `product-${id}`;
+    const cached = await this.cacheManager.get<Product>(key);
+    if (cached) {
+      return cached;
+    }
+
     const product = await this.productRepository.findOne({
       where: { id },
       relations: ['subcategory'],
     });
     if (!product) throw new NotFoundException(`Product ${id} not found`);
+    await this.cacheManager.set(key, product);
     return product;
   }
 

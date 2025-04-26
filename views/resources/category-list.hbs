@@ -2,12 +2,10 @@
   <h2>Управление категориями</h2>
   {{#if message}}{{message}}<br><br>{{/if}}
 
-  <a href="/category/create">
-    Новая категория
-  </a>
+  <a href="/category/create">Новая категория</a>
 
   {{#if categories.length}}
-    <div >
+    <div>
       {{#each categories}}
         <div class="item">
           <h3>{{name}}</h3>
@@ -48,7 +46,6 @@
     toastr.success(message, 'Уведомление');
   };
   eventSource.onerror = (error) => {
-    console.log('EventSource failed:', error);
     toastr.error('Ошибка отслеживания', 'Уведомление');
   };
 

@@ -6,7 +6,8 @@ import {
   Param,
   Render,
   Sse,
-  Redirect, HttpStatus,
+  Redirect,
+  HttpStatus,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -38,13 +39,16 @@ export class ProductController {
   @Get('create')
   @Render('resources/product-form')
   createForm() {
-    return { layout: false };
+    return { layout: this.layout };
   }
 
   @Get(':id/update')
   @Render('resources/product-form')
   async updateForm(@Param('id') id: string) {
-    return { product: await this.productService.findOne(+id), layout: false };
+    return {
+      product: await this.productService.findOne(+id),
+      layout: this.layout,
+    };
   }
 
   @Post()
@@ -59,7 +63,10 @@ export class ProductController {
   @Get()
   @Render('resources/product-list')
   async findAll() {
-    return { products: await this.productService.findAll(), layout: false };
+    return {
+      products: await this.productService.findAll(),
+      layout: this.layout,
+    };
   }
 
   @Post(':id/update')
@@ -80,4 +87,6 @@ export class ProductController {
     await this.productService.remove(+id);
     return { url: `/product?message=Товар удален` };
   }
+
+  private readonly layout = 'resource.hbs';
 }

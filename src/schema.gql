@@ -81,8 +81,8 @@ type Category {
 }
 
 type Query {
-  """Получение списка всех подкатегорий"""
-  categories: [Subcategory!]!
+  """Получение списка всех товаров"""
+  categories: [Product!]!
 
   """Получение категории по ID"""
   category(
@@ -95,61 +95,75 @@ type Query {
     """ID подкатегории"""
     id: Int!
   ): Subcategory!
+
+  """Получение товара по ID"""
+  product(
+    """ID товара"""
+    id: Int!
+  ): Product!
 }
 
 type Mutation {
-  """Создание новой подкатегории"""
+  """Создание нового товара"""
   create(
-    """Данные для создания подкатегории"""
-    createSubcategoryInput: CreateSubcategoryInput!
-  ): Subcategory!
+    """Данные для создания товара"""
+    createProductInput: CreateProductInput!
+  ): Product!
 
-  """Обновление данных подкатегории"""
+  """Обновление данных товара"""
   updateDriver(
-    """Данные для обновления подкатегории"""
-    updateSubcategoryInput: UpdateSubcategoryInput!
-  ): Subcategory!
+    """Данные для обновления товара"""
+    updateProductInput: UpdateProductInput!
+  ): Product!
 
-  """Удаление подкатегори"""
+  """Удаление товара"""
   removeDriver(
-    """ID подкатегории для удаления"""
+    """ID товара для удаления"""
     id: Int!
-  ): Subcategory!
+  ): Product!
 }
 
-"""Данные для создания категории"""
-input CreateSubcategoryInput {
-  """Название подкатегории"""
+"""Данные для создания товара"""
+input CreateProductInput {
+  """Название товара"""
   name: String!
 
-  """Настройка доступности покупки для игрока"""
-  checkMethod: String! = "not_need"
+  """Цена товара в рублях"""
+  price: Float!
 
-  """
-  Команда выдачи предмета (плейсхолдеры: %nickname%, %server%, %product%)
-  """
-  giveCommand: String!
+  """Описание товара"""
+  description: String!
 
-  """ID родительской категории"""
-  categoryId: Float!
-}
+  """Ссылка на изображение"""
+  imageUrl: String!
 
-"""Данные для обновления подкатегории"""
-input UpdateSubcategoryInput {
-  """Название подкатегории"""
-  name: String!
-
-  """Настройка доступности покупки для игрока"""
-  checkMethod: String! = "not_need"
-
-  """
-  Команда выдачи предмета (плейсхолдеры: %nickname%, %server%, %product%)
-  """
-  giveCommand: String!
-
-  """ID родительской категории"""
-  categoryId: Float!
+  """Название для команды выдачи"""
+  nameForCommand: String!
 
   """ID подкатегории"""
+  subcategoryId: Float!
+}
+
+"""Данные для обновления товара"""
+input UpdateProductInput {
+  """Название товара"""
+  name: String!
+
+  """Цена товара в рублях"""
+  price: Float!
+
+  """Описание товара"""
+  description: String!
+
+  """Ссылка на изображение"""
+  imageUrl: String!
+
+  """Название для команды выдачи"""
+  nameForCommand: String!
+
+  """ID подкатегории"""
+  subcategoryId: Float!
+
+  """ID товара"""
   id: Int!
 }

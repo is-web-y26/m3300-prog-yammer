@@ -5,7 +5,7 @@ import { SubcategoryResolver } from './subcategory.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Subcategory } from './entities/subcategory.entity';
 import { Category } from '../category/entities/category.entity';
-import { SubcategoryApiController } from './subcategory_api.controller';
+import { SubcategoryApiController } from './subcategory-api.controller';
 
 @Module({
   imports: [
