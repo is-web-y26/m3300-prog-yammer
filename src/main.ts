@@ -26,12 +26,6 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
-  // app.use(
-  //   methodOverride('_method', {
-  //     methods: ['POST', 'GET'],
-  //   }),
-  // );
-  // app.use(methodOverride('_method'));
   app.enableCors();
 
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));

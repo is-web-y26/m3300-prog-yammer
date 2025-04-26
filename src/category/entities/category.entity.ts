@@ -1,4 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+} from 'typeorm';
 import { Subcategory } from '../../subcategory/entities/subcategory.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
@@ -16,18 +21,16 @@ export class Category {
   @Column()
   name: string;
 
-  @ApiProperty({ example: 'icons/survival.png', description: 'Ссылка на иконку' })
-  @Field({ description: 'Ссылка на иконку' })
-  @Column({ name: 'icon_url' })
-  iconUrl: string;
-
-  @ApiProperty({ example: 'survival', description: 'Имя сервера, к которой относится категория' })
+  @ApiProperty({
+    example: 'survival',
+    description: 'Имя сервера, к которой относится категория',
+  })
   @Field({ description: 'Имя сервера, к которой относится категория' })
   @Column({ name: 'server_name' })
   serverName: string;
 
   @ApiProperty({ type: () => [Subcategory], description: 'Подкатегории' })
   @Field(() => [Subcategory], { description: 'Подкатегории' })
-  @OneToMany(() => Subcategory, subcategory => subcategory.category)
+  @OneToMany(() => Subcategory, (subcategory) => subcategory.category)
   subcategories: Subcategory[];
 }

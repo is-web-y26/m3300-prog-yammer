@@ -17,7 +17,6 @@ export class CategoryService {
   create(createCategoryDto: CreateCategoryDto) {
     const category = this.categoryRepository.create({
       ...createCategoryDto,
-      iconUrl: '',
     });
     this.eventEmitter.emit('shop.category', { type: 'CREATE', category });
     return this.categoryRepository.save(category);
@@ -28,7 +27,7 @@ export class CategoryService {
   }
 
   async findOne(id: number) {
-    const category = await this.categoryRepository.findOneBy({ id })
+    const category = await this.categoryRepository.findOneBy({ id });
     if (!category) throw new NotFoundException(`Category ${id} not found`);
     return category;
   }
@@ -37,7 +36,6 @@ export class CategoryService {
     const category = await this.categoryRepository.preload({
       id,
       ...updateCategoryDto,
-      iconUrl: '',
     });
     if (!category) throw new NotFoundException(`Category ${id} not found`);
     this.eventEmitter.emit('shop.category', { type: 'UPDATE', category });
@@ -46,7 +44,8 @@ export class CategoryService {
 
   async remove(id: number) {
     const result = await this.categoryRepository.delete(id);
-    if (result.affected === 0) throw new NotFoundException('Category not found');
+    if (result.affected === 0)
+      throw new NotFoundException('Category not found');
     this.eventEmitter.emit('shop.category', {
       type: 'REMOVE',
       category: result.raw as Category,

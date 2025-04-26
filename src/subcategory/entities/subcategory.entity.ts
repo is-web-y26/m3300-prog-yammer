@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Category } from '../../category/entities/category.entity';
 import { Product } from '../../product/entities/product.entity';
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
@@ -27,14 +33,6 @@ export class Subcategory {
   @Field({ description: 'Название подкатегории' })
   @Column()
   name: string;
-
-  @ApiProperty({
-    example: 'icons/privileges.png',
-    description: 'Ссылка на иконку',
-  })
-  @Field({ description: 'Ссылка на иконку' })
-  @Column({ name: 'icon_rl', nullable: true })
-  iconUrl: string;
 
   @ApiProperty({
     example: CheckMethod.HAVING,
@@ -71,7 +69,7 @@ export class Subcategory {
   category: Category;
 
   @ApiProperty({ type: () => [Product], description: 'Товары в подкатегории' })
-  @Field(type => [Product], { description: 'Товары в подкатегории' })
+  @Field((type) => [Product], { description: 'Товары в подкатегории' })
   @OneToMany(() => Product, (product) => product.subcategory)
   products: Product[];
 }
