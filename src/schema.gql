@@ -2,10 +2,70 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Гонщик команды"""
+"""Товар"""
+type Product {
+  """Уникальный идентификатор"""
+  id: Int!
+
+  """Название товара"""
+  name: Int!
+
+  """Цена товара в рублях"""
+  price: Float!
+
+  """Описание товара"""
+  description: String!
+
+  """Ссылка на изображение"""
+  imageUrl: String!
+
+  """Дата создания товара"""
+  createdAt: DateTime!
+
+  """Дата обновления товара"""
+  updatedAt: DateTime!
+
+  """Ссылка на иконку"""
+  nameForCommand: String!
+
+  """Подкатегория"""
+  subcategory: Subcategory!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Подкатегория товара"""
 type Subcategory {
   """Уникальный идентификатор"""
   id: Int!
+
+  """Название подкатегории"""
+  name: String!
+
+  """Ссылка на иконку"""
+  iconUrl: String!
+  checkMethod: CheckMethod!
+
+  """
+  Команда выдачи предмета (плейсхолдеры: %nickname%, %server%, %product%)
+  """
+  giveCommand: String!
+
+  """Родительская категория"""
+  category: Category!
+
+  """Товары в подкатегории"""
+  products: [Product!]!
+}
+
+"""Настройка доступности покупки для игрока"""
+enum CheckMethod {
+  NOT_NEED
+  HAVING
+  HAVING_MORE
 }
 
 """Категория товара"""
@@ -27,47 +87,75 @@ type Category {
 }
 
 type Query {
-  """Получение списка всех категорий"""
-  categories: [Category!]!
+  """Получение списка всех подкатегорий"""
+  categories: [Subcategory!]!
 
   """Получение категории по ID"""
   category(
     """ID категории"""
     id: Int!
   ): Category!
+
+  """Получение подкатегории по ID"""
+  subcategory(
+    """ID подкатегории"""
+    id: Int!
+  ): Subcategory!
 }
 
 type Mutation {
-  """Создание новой категории"""
+  """Создание новой подкатегории"""
   create(
-    """Данные для создания категории"""
-    createCategoryInput: CreateCategoryInput!
-  ): Category!
+    """Данные для создания подкатегории"""
+    createSubcategoryInput: CreateSubcategoryInput!
+  ): Subcategory!
 
-  """Обновление данных категории"""
+  """Обновление данных подкатегории"""
   updateDriver(
-    """Данные для обновления категории"""
-    updateCategoryInput: UpdateCategoryInput!
-  ): Category!
+    """Данные для обновления подкатегории"""
+    updateSubcategoryInput: UpdateSubcategoryInput!
+  ): Subcategory!
 
-  """Удаление категори"""
+  """Удаление подкатегори"""
   removeDriver(
-    """ID категории для удаления"""
+    """ID подкатегории для удаления"""
     id: Int!
-  ): Category!
+  ): Subcategory!
 }
 
 """Данные для создания категории"""
-input CreateCategoryInput {
-  """Название категории"""
+input CreateSubcategoryInput {
+  """Название подкатегории"""
   name: String!
 
-  """Имя сервера, к которой относится категория"""
-  serverName: String!
+  """Настройка доступности покупки для игрока"""
+  checkMethod: String! = "not_need"
+
+  """
+  Команда выдачи предмета (плейсхолдеры: %nickname%, %server%, %product%)
+  """
+  giveCommand: String!
+
+  """ID родительской категории"""
+  categoryId: Float!
 }
 
-"""Данные для обновления категории"""
-input UpdateCategoryInput {
-  """ID категории"""
+"""Данные для обновления подкатегории"""
+input UpdateSubcategoryInput {
+  """Название подкатегории"""
+  name: String!
+
+  """Настройка доступности покупки для игрока"""
+  checkMethod: String! = "not_need"
+
+  """
+  Команда выдачи предмета (плейсхолдеры: %nickname%, %server%, %product%)
+  """
+  giveCommand: String!
+
+  """ID родительской категории"""
+  categoryId: Float!
+
+  """ID подкатегории"""
   id: Int!
 }

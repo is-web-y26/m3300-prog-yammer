@@ -39,6 +39,7 @@ export class Subcategory {
   @ApiProperty({
     example: CheckMethod.HAVING,
     enum: CheckMethod,
+    enumName: 'CheckMethod',
     description: 'Настройка доступности покупки для игрока',
   })
   @Field((type) => CheckMethod)

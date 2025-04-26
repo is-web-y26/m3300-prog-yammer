@@ -7,11 +7,11 @@ import { parse } from 'pg-connection-string';
 import { CategoryModule } from './category/category.module';
 import { SubcategoryModule } from './subcategory/subcategory.module';
 import { ProductModule } from './product/product.module';
-import { CategoryController } from './category/category.controller';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
+import { S3Module } from './s3/s3Module';
+import { FileUploadController } from './s3/files.controller';
 
 @Module({
   imports: [
@@ -50,15 +50,15 @@ import { GraphQLModule } from '@nestjs/graphql';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile:  'src/schema.gql',
+      autoSchemaFile: 'src/schema.gql',
       playground: true,
-      // context: ({ req }) => ({ req }),
     }),
     CategoryModule,
     SubcategoryModule,
     ProductModule,
+    S3Module,
   ],
-  controllers: [AppController],
+  controllers: [AppController, FileUploadController],
   providers: [AppService],
 })
 export class AppModule {}

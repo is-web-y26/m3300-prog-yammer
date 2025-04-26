@@ -6,7 +6,6 @@ import { Category } from './entities/category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-
 @Injectable()
 export class CategoryService {
   constructor(
@@ -47,7 +46,10 @@ export class CategoryService {
 
   async remove(id: number) {
     const result = await this.categoryRepository.delete(id);
-    if (result.affected === 0) throw new NotFoundException('User not found');
-    this.eventEmitter.emit('shop.category', { type: 'REMOVE', category: result.raw });
+    if (result.affected === 0) throw new NotFoundException('Category not found');
+    this.eventEmitter.emit('shop.category', {
+      type: 'REMOVE',
+      category: result.raw as Category,
+    });
   }
 }

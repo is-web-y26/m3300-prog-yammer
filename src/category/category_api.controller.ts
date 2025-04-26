@@ -8,7 +8,6 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @ApiTags('Category')
 @Controller('api/category')
-@UseFilters(NotFoundExceptionFilter)
 export class CategoryApiController {
   constructor(
     private readonly categoryService: CategoryService,
@@ -18,7 +17,7 @@ export class CategoryApiController {
   @ApiOperation({ summary: 'Создать новую категорию' })
   @ApiBody({ description: 'Данные для создания категории', type: CreateCategoryDto })
   @ApiResponse({ status: 201, description: 'Категория успешно создана' })
-  @ApiResponse({ status: 400, description: 'Некорректный запрос' })
+  @ApiResponse({ status: 400, description: 'Некорректны данные' })
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
   }
@@ -52,6 +51,7 @@ export class CategoryApiController {
     },
   })
   @ApiResponse({ status: 200, description: 'Категория обновлена' })
+  @ApiResponse({ status: 400, description: 'Некорректны данные' })
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(+id, updateCategoryDto);
   }

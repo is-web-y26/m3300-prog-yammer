@@ -1,32 +1,31 @@
 <div>
-  <h2>Управление категориями</h2>
-  {{message}}
+  <h2>Управление товарами</h2>
 
-  <a href="/category/create">
+  <a href="/product/create">
     Новая категория
   </a>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 
-  {{#if categories.length}}
-    <div class="category-list">
-      {{#each categories}}
+  {{#if products.length}}
+    <div class="product-list">
+      {{#each products}}
         <div class="news-item card mb-3">
           <div class="card-body">
             <h3 class="card-title">{{name}}</h3>
             <div class="card-text">
-              <p>Привязанный сервер: {{serverName}}</p>
+              <p>Цена: {{price}}</p>
+            </div>
+            <div class="card-text">
+              <p>Подкатегория: {{subcategory.id}}) {{subcategory.name}}</p>
             </div>
 
             <div class="actions mt-3">
-<!--              <a href="/category/{{this.id}}" class="btn btn-info btn-sm">-->
-<!--                <i class="fas fa-info-circle"></i> Подробнее-->
-<!--              </a>-->
-              <a href="/category/{{id}}/update" class="btn btn-warning btn-sm">
+              <a href="/product/{{id}}/update" class="btn btn-warning btn-sm">
                 <i class="fas fa-edit"></i> Редактировать
               </a>
-              <form action="/category/{{id}}/remove" method="POST">
+              <form action="/product/{{id}}/remove" method="POST">
                 <button type="submit" class="btn btn-danger btn-sm">
                   <i class="fas fa-trash"></i> Удалить
                 </button>
@@ -38,26 +37,26 @@
     </div>
   {{else}}
     <div class="alert alert-info">
-      Нет категорий
+      Нет товаров
     </div>
   {{/if}}
 </div>
 
 
 <style>
-  .category-list .news-item {
+  .product-list .news-item {
     background: #fff;
     border-radius: 8px;
     transition: transform 0.2s;
   }
 
-  .category-list .news-item:hover {
+  .product-list .news-item:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 </style>
 <script>
-  const eventSource = new EventSource('/category/sse');
+  const eventSource = new EventSource('/product/sse');
 
   eventSource.onmessage = (e) => {
     try {
@@ -77,9 +76,4 @@
       }).show();
     }
   };
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const baseUrl = window.location.origin + window.location.pathname;
-    window.history.replaceState({}, document.title, baseUrl);
-  });
 </script>

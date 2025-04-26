@@ -1,5 +1,33 @@
 <link rel="stylesheet" href="css/shop.css">
 
+<div class="greeting">
+  <div class="greeting__content">
+    <img src="/media/main/prog_yammer.png" class="greeting__image" alt="prog.yammer's skin">
+    <div class="greeting__desc greeting__desc-block1">
+      <img src="/media/main/description_block1.png" alt="Description block 1">
+      <div>
+        Ну это сайт нашего супер сервера, который временно закрыт. Но сейчас он мне позволит закрыть веб)
+      </div>
+    </div>
+    <div class="greeting__info">
+      <div class="greeting__title">
+        <span style="text-shadow: 0 0 20px #0000ff73;">PIXЕ</span><span style="text-shadow: 0 0 20px #612c6f73;">LC</span><span style="text-shadow: 0 0 20px #ff000073;">ORE</span>
+      </div>
+      <div class="info__description">
+        Ну это сайт нашего супер сервера, который временно закрыт. Но сейчас он мне позволит закрыть веб) <br>
+        А так сервак супер гуд, кастомные жаба плагины с ручными эСКаэЛь запросами, но потихоньку ситуация исправляется. Прорекламьте пжпжпжпж
+      </div>
+    </div>
+    <div class="greeting__desc greeting__desc-block2">
+      <img src="/media/main/description_block2.png" alt="Description block 2">
+      <div>
+        А так сервак супер гуд, кастомные жаба плагины с ручными эСКаэЛь запросами
+      </div>
+    </div>
+    <img src="/media/main/coolgrebo4ek.png" class="greeting__image" alt="CoolGrebo4ek's skin">
+  </div>
+</div>
+
 <div class="shop__main">
   <h2 class="shop__title">
     <span>Магазин</span>
@@ -15,42 +43,103 @@
       {{/each}}
     </ul>
   </div>
-<!--    <ul class="subcategories">-->
-<!--      <i class="icon-subcategories"></i>-->
-<!--      {% for s in subcategories %}-->
-<!--      <li class="subcategory"-->
-<!--          style="display: none"-->
-<!--          data-category-id="{{ s.category.id }}"-->
-<!--          data-subcategory-id="{{ s.id }}">-->
-<!--        {#                            TODO#}-->
-<!--        {#                            <span class="label">#}-->
-<!--{#                                <i class="icon-{{ s.icon }}"></i>#}-->
-<!--{#                            </span>#}-->
-<!--        <span>{{ s.name }}</span>-->
-<!--      </li>-->
-<!--      {% endfor %}-->
-<!--    </ul>-->
-<!--  </div>-->
+  <div>
+    <ul class="subcategories">
+      {{#each subcategories}}
+        <li class="subcategory"
+            style="display: none"
+            data-category-id="{{ category.id }}"
+            data-subcategory-id="{{ id }}">
+          <span>{{ name }}</span>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
 
-<!--  <ul class="cards">-->
-<!--    {% for p in products %}-->
-<!--    <li class="card"-->
-<!--        style="display: none"-->
-<!--        data-subcategory-id="{{ p.subcategory.id }}"-->
-<!--        data-description="{{ p.description }}"-->
-<!--        data-item-id="{{ p.id }}">-->
-<!--      <div class="card__image" style="background-image:url({% get_media_prefix %}{{ p.image }})"></div>-->
-<!--      <div class="card__description">-->
-<!--        <span style="display: none">{{ p.description }}</span>-->
-<!--        <div class="sub-text">-->
-<!--          {#                            <i class="icon-{{ p.subcategory.category.icon }}"></i>#}-->
-<!--          {#                            <i class="icon-{{ p.subcategory.icon }}"></i>#}-->
-<!--          {{ p.subcategory.name }}-->
-<!--        </div>-->
-<!--        <div class="card__name">{{ p.name }}</div>-->
-<!--        <div class="card__cost"><span>{{ p.price }}</span> ₽</div>-->
-<!--      </div>-->
-<!--    </li>-->
-<!--    {% endfor %}-->
-<!--  </ul>-->
+  <ul class="cards">
+    {{#each products}}
+      <li class="card"
+          style="display: none"
+          data-subcategory-id="{{ subcategory.id }}"
+          data-description="{{ description }}"
+          data-item-id="{{ id }}">
+        <div class="card__image" style="background-image:url({{ imageUrl }})"></div>
+        <div class="card__description">
+          <span style="display: none">{{ description }}</span>
+          <div class="sub-text">
+            {{ subcategory.name }}
+          </div>
+          <div class="card__name">{{ name }}</div>
+          <div class="card__cost"><span>{{ price }}</span> ₽</div>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+
+  <div class="modal" style="display: none">
+    <div class="close-button"></div>
+    <div class="dialog">
+      <div class="dialog__container dialog__product">
+        <div class="product__info" data-item-id>
+          <h2 class="dialog__header">Товар епта</h2>
+          <div class="product__description">
+            <span> А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должнА тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн А тебя это ебыть не должн</span>
+          </div>
+        </div>
+        <div class="product__purchase">
+          <h2 class="dialog__header">Покупка товара</h2>
+          <div class="product__purchase">
+            <div class="purchase__form">
+              <div class="form__element">
+                <input class="form__input" type="text" name="nickname" autocomplete="off" placeholder="Игровой никнейм">
+                <div id="nickname" class="input__clear"></div>
+              </div>
+              <div class="form__element">
+                <input class="form__input" type="text" name="coupon" autocomplete="off" placeholder="Купон на скидку">
+                <div id="coupon" class="input__clear"></div>
+              </div>
+            </div>
+            <div style="margin-top: auto;">
+              <div class="modal__cost">
+                <div class="cost__text">Итого:
+                  <div class="cost__sale"></div>
+                </div>
+                <div class="cost__value">
+                  <span>200</span> ₽
+                </div>
+              </div>
+              <button class="purchase-button --pointer">
+                                    <span>
+                                        Купить
+                                    </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog__container dialog__methods">
+        <div class="dialog__back-button">
+          <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+              <polygon class="dialog__back-button-pl" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+              <polygon class="dialog__back-button-pl-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+              <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+            </g>
+          </svg>
+        </div>
+        <h2 class="dialog__header">Выберите способ оплаты</h2>
+
+        <ul class="methods__list">
+          <li class="method-button" data-type="mir" title="Карта Мир"></li>
+          <li class="method-button" data-type="sbp" title="СБП"></li>
+          <li class="method-button" data-type="t-pay" title="T-Пэй"></li>
+          <li class="method-button" data-type="yandex-pay" title="Яндекс Пэй"></li>
+          <li class="method-button" data-type="yoomoney" title="ЮМани"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script type="text/javascript" src="js/shop-bundle.js"></script>

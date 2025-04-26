@@ -7,10 +7,7 @@ import { CategoryApiController } from './category_api.controller';
 import { CategoryResolver } from './category.resolver';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Category]),
-    CategoryModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Category]), CategoryModule],
   controllers: [CategoryController, CategoryApiController],
   providers: [CategoryService, CategoryResolver],
   exports: [CategoryService],

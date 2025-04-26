@@ -27,6 +27,7 @@
     "migration:revert": "npm run typeorm migration:revert"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.796.0",
     "@nestjs/apollo": "^13.1.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
@@ -37,8 +38,12 @@
     "@nestjs/platform-express": "^11.0.20",
     "@nestjs/swagger": "^11.1.4",
     "@nestjs/typeorm": "^11.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "connect-flash": "^0.1.1",
     "eventsource": "^3.0.6",
     "express-handlebars": "^8.0.2",
+    "express-session": "^1.18.1",
     "hbs": "^4.2.0",
     "method-override": "^3.0.0",
     "pg": "^8.14.1",
@@ -58,6 +63,7 @@
     "@types/express-handlebars": "^5.3.1",
     "@types/hbs": "^4.0.4",
     "@types/jest": "^29.5.14",
+    "@types/multer": "^1.4.12",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",

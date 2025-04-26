@@ -1,11 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CheckMethod } from '../entities/subcategory.entity';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateSubcategoryDto {
   @ApiProperty({ example: 'Привилегии', description: 'Название подкатегории' })
+  @IsString()
   name: string;
 
-  @ApiProperty({ example: CheckMethod.HAVING, description: 'Настройка доступности покупки для игрока', })
+  @ApiProperty({
+    example:
+    CheckMethod.HAVING,
+    enum: CheckMethod,
+    enumName: 'CheckMethod',
+    description: 'Настройка доступности покупки для игрока',
+  })
+  @IsEnum(CheckMethod, {message: `Роль должна быть одним из: ${Object.values(CheckMethod).join(', ')}` })
   checkMethod?: CheckMethod = CheckMethod.NOT_NEED;
 
   @ApiProperty({
@@ -13,8 +23,11 @@ export class CreateSubcategoryDto {
     description:
       'Команда выдачи предмета (плейсхолдеры: %nickname%, %server%, %product%)',
   })
+  @IsString()
   giveCommand: string;
 
-  @ApiProperty({ example: 1, description: 'ID родительской категории', })
+  @ApiProperty({ example: 1, description: 'ID родительской категории' })
+  @Type(() => Number)
+  @IsNumber()
   categoryId: number;
 }

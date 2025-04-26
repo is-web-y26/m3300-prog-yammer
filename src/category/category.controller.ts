@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Sse, Redirect } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param, Render, Sse, Redirect, HttpStatus, Res, Req } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -39,16 +40,16 @@ export class CategoryController {
   }
 
   @Post()
-  @Redirect('/category/:id/update')
-  async create(@Body() createCategoryDto: CreateCategoryDto) {
+  @Redirect('/category', HttpStatus.SEE_OTHER)
+  async create(@Body() createCategoryDto: CreateCategoryDto, @Res() res: Response) {
     const category = await this.categoryService.create(createCategoryDto);
-    return { category: category, layout: false };
+    return { url: `/category?message=Категория ${category.id})${category.name} создана` };
   }
 
   @Get()
   @Render('resources/category-list')
-  async findAll() {
-    return { categories: await this.categoryService.findAll(), layout: false };
+  async findAll(@Query('message') message: string) {
+    return { categories: await this.categoryService.findAll(), message, layout: false };
   }
 
   // @Get(':id')
@@ -57,16 +58,16 @@ export class CategoryController {
   // }
 
   @Post(':id/update')
-  @Render('resources/category-form')
+  @Redirect('/category', HttpStatus.SEE_OTHER)
   async update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     const category = await this.categoryService.update(+id, updateCategoryDto);
-    return { category, layout: false };
+    return { url: `/category?message=Категория ${category.id})${category.name} обновлена` };
   }
 
   @Post(':id/remove')
-  @Redirect('/category')
+  @Redirect('/category', HttpStatus.SEE_OTHER)
   async remove(@Param('id') id: string) {
-    const category = await this.categoryService.remove(+id);
-    return { categories: await this.categoryService.findAll(), layout: false };
+    await this.categoryService.remove(+id);
+    return { url: `/category?message=Категория удалена` };
   }
 }

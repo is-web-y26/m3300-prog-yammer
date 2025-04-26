@@ -1,0 +1,153 @@
+<div>
+  {{#if product}}
+    <h2>Обновление категории: Id {{product.id}}</h2>
+  {{else}}
+    <h2>Добавление новой категории</h2>
+  {{/if}}
+
+  <form action="/product{{#if product}}/{{product.id}}/update{{/if}}" method="POST">
+    <div class="form-group">
+      <label>Название:</label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        placeholder="Привилегии"
+        {{#if product}}value="{{product.name}}"{{/if}}
+        required
+      >
+    </div>
+    <div class="form-group">
+      <label>Цена:</label>
+      <input
+        type="text"
+        name="price"
+        class="form-control"
+        {{#if product}}value="{{product.price}}"{{/if}}
+        required
+      >
+    </div>
+    <div class="form-group">
+      <label>Описание:</label>
+      <input
+        type="text"
+        name="description"
+        class="form-control"
+        {{#if product}}value="{{product.description}}"{{/if}}
+        required
+      >
+    </div>
+    <div class="form-group">
+      <label>Изображение:</label>
+      <button id="uploadPhotoBtn" type="button">Предложите Ваше фото</button>
+      <a id="imageUrlLabel" target="_blank" {{#if product}}href="{{product.imageUrl}}"{{/if}}>{{#if product}}{{product.imageUrl}}{{/if}}</a>
+      <input
+        id="imageUrlInput"
+        type="text"
+        name="imageUrl"
+        class="form-control"
+        {{#if product}}value="{{product.imageUrl}}"{{/if}}
+        style="display: none;"
+        required
+        readonly
+      >
+    </div>
+    <div class="form-group">
+      <label>Название для команды:</label>
+      <input
+        type="text"
+        name="nameForCommand"
+        class="form-control"
+        {{#if product}}value="{{product.nameForCommand}}"{{/if}}
+        required
+      >
+    </div>
+    <div class="form-group">
+      <label>ID подкатегории:</label>
+      <input
+        type="number"
+        name="subcategoryId"
+        class="form-control"
+        placeholder="1"
+        {{#if product}}value="{{product.subcategory.id}}"{{/if}}
+        required
+      >
+    </div>
+
+    <button type="submit">
+      Сохранить
+    </button>
+  </form>
+</div>
+
+<style>
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-control {
+    border-radius: 4px;
+    padding: 0.75rem;
+  }
+</style>
+<ul id="events"></ul>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+  const eventList = document.getElementById('events');
+  const eventSource = new EventSource('http://localhost:3000/product/sse');
+
+  toastr.options.positionClass = "toast-bottom-right";
+
+  eventSource.onmessage = (e) => {
+    toastr.success('Сообщение успешно отправлено!', 'Успех');
+  };
+
+  eventSource.onerror = (error) => {
+    console.log('EventSource failed:', error);
+  };
+
+
+  const uploadBtn = document.getElementById('uploadPhotoBtn');
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.id = 'fileInput';
+
+  uploadBtn.addEventListener('click', () => {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file) {
+      alert('Вы не выбрали файл');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/files/uploadPhoto', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(async (res) => {
+        if (res.ok) {
+          const result = await res.json();
+          document.getElementById('imageUrlLabel').href = result.url;
+          document.getElementById('imageUrlLabel').textContent = result.url;
+          document.getElementById('imageUrlInput').value = result.url;
+        } else {
+          alert('Не удалось загрузить фото!');
+        }
+      })
+      .catch((err) => {
+        console.error('Ошибка при выполнении запроса:', err);
+        alert('Не удалось загрузить фото!');
+      });
+  });
+</script>
+

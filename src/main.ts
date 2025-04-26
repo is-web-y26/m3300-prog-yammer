@@ -5,6 +5,9 @@ import { AppModule } from './app.module';
 import * as methodOverride from 'method-override';
 import * as exphbs from 'express-handlebars';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
+import { NotFoundExceptionFilter } from './filters/not_found_exc.filter';
+import { engine } from 'express-handlebars';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -14,11 +17,9 @@ async function bootstrap() {
     defaultLayout: 'main',
     layoutsDir: join(__dirname, '..', 'views', 'layouts'),
     partialsDir: join(__dirname, '..', 'views', 'partials'),
-    // helpers: {
-    //   // Регистрация хелперов
-    //   currentYear: () => new Date().getFullYear(),
-    //   // Другие хелперы...
-    // }
+    helpers: {
+      isActiveNavItem: (current, route) => current === route ? ' nav__link--active' : ''
+    }
   });
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
@@ -26,7 +27,6 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
-  // hbs.registerPartials(join(__dirname, '..', 'views/partials'));
   app.use(
     methodOverride('_method', {
       methods: ['POST', 'GET'],
@@ -34,6 +34,9 @@ async function bootstrap() {
   );
   app.use(methodOverride('_method'));
   app.enableCors();
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+  app.useGlobalFilters(new NotFoundExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('My API')

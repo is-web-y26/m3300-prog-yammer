@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Sse, Redirect } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Render, Sse, Redirect, UseFilters } from '@nestjs/common';
 import { SubcategoryService } from './subcategory.service';
 import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { UpdateSubcategoryDto } from './dto/update-subcategory.dto';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { fromEvent, interval, map, Observable } from 'rxjs';
 import { ApiExcludeController } from '@nestjs/swagger';
+import { NotFoundExceptionFilter } from '../filters/not_found_exc.filter';
 
 @ApiExcludeController()
 @Controller('subcategory')
@@ -39,8 +40,9 @@ export class SubcategoryController {
   }
 
   @Post()
-  @Redirect('/subcategory/:id/update')
+  @Redirect('/subcategory')
   async create(@Body() createSubcategoryDto: CreateSubcategoryDto) {
+    console.log(createSubcategoryDto);
     const subcategory = await this.subcategoryService.create(createSubcategoryDto);
     return { subcategory: subcategory, layout: false };
   }
@@ -48,7 +50,7 @@ export class SubcategoryController {
   @Get()
   @Render('resources/subcategory-list')
   async findAll() {
-    return { categories: await this.subcategoryService.findAll(), layout: false };
+    return { subcategories: await this.subcategoryService.findAll(), layout: false };
   }
 
   // @Get(':id')
