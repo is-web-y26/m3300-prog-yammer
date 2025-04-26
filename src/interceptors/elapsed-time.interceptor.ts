@@ -23,9 +23,10 @@ export class ElapsedTimeInterceptor implements NestInterceptor {
           request.headers.accept &&
           request.headers.accept.includes('text/html')
         ) {
-          // if (response) response.locals.loadTime = time;
+          response.locals.loadTime = time;
         } else {
-          // if (response) response.setHeader('X-Elapsed-Time', `${time} ms`);
+          if (response.setHeader)
+            response.setHeader('X-Elapsed-Time', `${time} ms`);
         }
         console.log(`Response processed: ${time} ms`);
       }),

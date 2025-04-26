@@ -57,7 +57,7 @@ import { ElapsedTimeInterceptor } from './interceptors/elapsed-time.interceptor'
       playground: true,
       introspection: true,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      context: ({ req, res }) => ({ req, res }),
+      context: ({ req }) => ({ req }),
       path: '/graphql',
       cache: 'bounded',
     }),
