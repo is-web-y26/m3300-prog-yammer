@@ -385,6 +385,18 @@
     transition: all .2s ease-in-out;
 }
 
+.form__input-success {
+    border: 2px solid #26b345;
+    color: #26b345;
+    background-color: #e0f8e5
+}
+
+.form__input-error {
+    border: 2px solid #d93c3c;
+    color: #d93c3c;
+    background-color: #fdf4f4
+}
+
 .input__clear {
     position: absolute;
     top: 50%;

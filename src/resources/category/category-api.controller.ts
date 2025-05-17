@@ -19,7 +19,7 @@ import { Category } from './entities/category.entity';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { CacheControl } from '../interceptors/etag.interceptor';
+import { CacheControl } from '../../interceptors/etag.interceptor';
 
 @ApiTags('Category')
 @Controller('api/category')

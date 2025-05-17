@@ -35,7 +35,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('My API')
-    .setDescription('API description')
+    .setDescription('Описание API для PixelCore')
     .setVersion('1.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);

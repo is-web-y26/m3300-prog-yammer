@@ -4,9 +4,12 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { parse } from 'pg-connection-string';
-import { CategoryModule } from './category/category.module';
-import { SubcategoryModule } from './subcategory/subcategory.module';
-import { ProductModule } from './product/product.module';
+import { CategoryModule } from './resources/category/category.module';
+import { SubcategoryModule } from './resources/subcategory/subcategory.module';
+import { ProductModule } from './resources/product/product.module';
+import { PlayerModule } from './resources/player/player.module';
+import { CouponModule } from './resources/coupon/coupon.module';
+import { PaymentModule } from './resources/payment/payment.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -70,6 +73,9 @@ import { ElapsedTimeInterceptor } from './interceptors/elapsed-time.interceptor'
     SubcategoryModule,
     ProductModule,
     S3Module,
+    PlayerModule,
+    CouponModule,
+    PaymentModule,
   ],
   controllers: [AppController, FileUploadController],
   providers: [

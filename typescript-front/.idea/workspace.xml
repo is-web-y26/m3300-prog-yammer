@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="caee6bcb-2468-4a3d-807c-4a73c7cb52f5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../database_diagram.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../public/css/shop.css" beforeDir="false" afterPath="$PROJECT_DIR$/../public/css/shop.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../public/js/base-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/../public/js/base-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../public/js/shop-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/../public/js/shop-bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/category-api.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/category.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/category.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/category.resolver.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/category.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/dto/create-category.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/dto/create-category.input.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/dto/update-category.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/dto/update-category.input.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/category/entities/category.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/migrations/1745666270525-InitialMigration.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/dto/create-product.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/dto/create-product.input.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/dto/update-product.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/dto/update-product.input.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/entities/product.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/product-api.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/product.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/product.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/product.resolver.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/product/product.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/schema.gql" beforeDir="false" afterPath="$PROJECT_DIR$/../src/schema.gql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/dto/create-subcategory.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/dto/create-subcategory.input.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/dto/update-subcategory.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/dto/update-subcategory.input.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/entities/subcategory.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/subcategory-api.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/subcategory.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/subcategory.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/subcategory.resolver.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/subcategory/subcategory.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../views/pages/shop.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/../views/pages/shop.hbs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2xDi9KuJWN0D5gOBXYbnTGQ85Dh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/prog.yammer/Desktop/ITMO/web/beb/typescript-front",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
+    "ts.external.directory.path": "C:\\Users\\prog.yammer\\Desktop\\ITMO\\web\\beb\\typescript-front\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.build" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-WS-251.23774.424" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="caee6bcb-2468-4a3d-807c-4a73c7cb52f5" name="Changes" comment="" />
+      <created>1747478891987</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747478891987</updated>
+      <workItem from="1747478893052" duration="1767000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

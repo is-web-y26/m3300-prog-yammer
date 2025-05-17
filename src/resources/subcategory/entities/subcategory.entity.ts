@@ -3,23 +3,12 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToMany,
+  OneToMany, JoinColumn,
 } from 'typeorm';
 import { Category } from '../../category/entities/category.entity';
 import { Product } from '../../product/entities/product.entity';
-import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-
-export enum CheckMethod {
-  NOT_NEED = 'not_need',
-  HAVING = 'having',
-  HAVING_MORE = 'having_more',
-}
-
-registerEnumType(CheckMethod, {
-  name: 'CheckMethod',
-  description: 'Настройка доступности покупки для игрока',
-});
 
 @ObjectType({ description: 'Подкатегория товара' })
 @Entity({ name: 'subcategories' })
@@ -33,21 +22,6 @@ export class Subcategory {
   @Field({ description: 'Название подкатегории' })
   @Column()
   name: string;
-
-  @ApiProperty({
-    example: CheckMethod.HAVING,
-    enum: CheckMethod,
-    enumName: 'CheckMethod',
-    description: 'Настройка доступности покупки для игрока',
-  })
-  @Field((type) => CheckMethod)
-  @Column({
-    name: 'check_method',
-    type: 'enum',
-    enum: CheckMethod,
-    default: CheckMethod.NOT_NEED,
-  })
-  checkMethod: CheckMethod;
 
   @ApiProperty({
     example: 'lp user %nickname% parent add %product% server=%server%',
@@ -66,6 +40,7 @@ export class Subcategory {
   @ManyToOne(() => Category, (category) => category.subcategories, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'category_id' })
   category: Category;
 
   @ApiProperty({ type: () => [Product], description: 'Товары в подкатегории' })

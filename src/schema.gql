@@ -44,7 +44,6 @@ type Subcategory {
 
   """Название подкатегории"""
   name: String!
-  checkMethod: CheckMethod!
 
   """
   Команда выдачи предмета (плейсхолдеры: %nickname%, %server%, %product%)
@@ -56,13 +55,6 @@ type Subcategory {
 
   """Товары в подкатегории"""
   products: [Product!]!
-}
-
-"""Настройка доступности покупки для игрока"""
-enum CheckMethod {
-  NOT_NEED
-  HAVING
-  HAVING_MORE
 }
 
 """Категория товара"""

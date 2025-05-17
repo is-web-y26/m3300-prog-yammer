@@ -29,7 +29,6 @@ export class CategoryService {
       where: { id },
       relations: ['subcategories'],
     });
-    console.log(category);
     if (!category) throw new NotFoundException(`Category ${id} not found`);
     return category;
   }

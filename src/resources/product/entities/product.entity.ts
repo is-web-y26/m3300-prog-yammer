@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Subcategory } from '../../subcategory/entities/subcategory.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
@@ -21,7 +29,10 @@ export class Product {
   @Column('decimal')
   price: number;
 
-  @ApiProperty({ example: 'Открывается доступ к команде /fly', description: 'Описание товара' })
+  @ApiProperty({
+    example: 'Открывается доступ к команде /fly',
+    description: 'Описание товара',
+  })
   @Field({ description: 'Описание товара' })
   @Column()
   description: string;
@@ -36,14 +47,12 @@ export class Product {
 
   @ApiProperty({ example: new Date(), description: 'Дата создания товара' })
   @Field({ description: 'Дата создания товара' })
-  @Column({ name: 'created_at' })
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
   @ApiProperty({ example: new Date(), description: 'Дата обновления товара' })
   @Field({ description: 'Дата обновления товара' })
-  @Column({ name: 'updated_at' })
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   @ApiProperty({ example: 'vip', description: 'Название для команды выдачи' })
@@ -53,6 +62,9 @@ export class Product {
 
   @ApiProperty({ type: () => Subcategory, description: 'Подкатегория' })
   @Field((type) => Subcategory, { description: 'Подкатегория' })
-  @ManyToOne(() => Subcategory, subcategory => subcategory.products, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Subcategory, (subcategory) => subcategory.products, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'subcategory_id' })
   subcategory: Subcategory;
 }

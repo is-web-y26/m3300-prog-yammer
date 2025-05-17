@@ -19,7 +19,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { CacheControl } from '../interceptors/etag.interceptor';
+import { CacheControl } from '../../interceptors/etag.interceptor';
 
 @ApiTags('Product')
 @Controller('api/product')

@@ -19,7 +19,7 @@ import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { SubcategoryService } from './subcategory.service';
 import { Subcategory } from './entities/subcategory.entity';
 import { UpdateSubcategoryDto } from './dto/update-subcategory.dto';
-import { CacheControl } from '../interceptors/etag.interceptor';
+import { CacheControl } from '../../interceptors/etag.interceptor';
 
 @ApiTags('Subcategory')
 @Controller('api/subcategory')
@@ -31,12 +31,11 @@ export class SubcategoryApiController {
   @ApiOperation({ summary: 'Создать новую подкатегорию' })
   @ApiBody({
     description: 'Данные для создания подкатегории',
-    type: CreateSubcategoryDto,
+    type: CreateSubcategoryDto
   })
   @ApiResponse({ status: 201, description: 'Подкатегория успешно создана' })
   @ApiResponse({ status: 400, description: 'Некорректны данные' })
   create(@Body() createSubcategoryDto: CreateSubcategoryDto) {
-    console.log(createSubcategoryDto.checkMethod);
     return this.subcategoryService.create(createSubcategoryDto);
   }
 
